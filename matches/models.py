@@ -1,0 +1,30 @@
+from django.db import models
+
+class Match(models.Model):
+    date = models.CharField(max_length=255)
+    time = models.CharField(max_length=255)
+    comp = models.CharField(max_length=255)
+    round = models.CharField(max_length=255)
+    day = models.CharField(max_length=255)
+    venue = models.CharField(max_length=255)
+    result = models.CharField(max_length=255)
+    gf = models.CharField(max_length=255)
+    ga = models.CharField(max_length=255)
+    opponent = models.CharField(max_length=255)
+    xg = models.CharField(max_length=255)
+    xga = models.CharField(max_length=255)
+    poss = models.CharField(max_length=255)
+    attendance = models.CharField(max_length=255, default='No data')
+    captain = models.CharField(max_length=255)
+    formation = models.CharField(max_length=255)
+    referee = models.CharField(max_length=255)
+    sh	= models.CharField(max_length=255)
+    sot = models.CharField(max_length=255)
+    dist = models.CharField(max_length=255)
+    fk = models.CharField(max_length=255)
+    pickem = models.CharField(max_length=255)
+    pkatt = models.CharField(max_length=255)
+    season = models.CharField(max_length=255)
+    team = models.CharField(max_length=255)
+
+# Create your models here.
