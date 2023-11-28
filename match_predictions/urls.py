@@ -21,6 +21,8 @@ from match_predictions import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='home'),
-    path('matches/',views.viewMatches,name='matches')
+    path('matches/',views.viewMatches,name='matches'),
+    path('predictions/',views.viewPredictions,name='predictions')
+
 
 ]

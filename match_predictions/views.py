@@ -33,3 +33,21 @@ def viewMatches(request):
         'totalPage': page_range,
     }
     return render(request, "matches.html", data)
+
+def viewPredictions(request):
+    prediction = Prediction.objects.all()
+    paginator = Paginator(prediction, 20)
+    page_number = request.GET.get('page')
+    prediction_final = paginator.get_page(page_number)
+    totalPageNumber = prediction_final.paginator.num_pages
+    current_page = prediction_final.number
+    start_page = max(1, current_page - 2)
+    end_page = min(totalPageNumber, current_page + 2) + 1  
+    page_range = range(start_page, end_page)
+    
+    data = {
+        'predictions': prediction_final,
+        'lastpage': totalPageNumber,
+        'totalPage': page_range,
+    }
+    return render(request, "prediction.html", data)

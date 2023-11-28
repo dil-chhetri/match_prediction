@@ -3,52 +3,11 @@
 {% block section %}
 
 <div class="px-5">
-    <div class="row justify-content-center">
-        <h3 class="mt-2">Matches</h3>
 
-        <div class="col-md-12 mt-3" style="height: 100vh;">
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                       
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Team</th>
-             
-                        <th scope="col">Opponent</th>
-                        <th scope="col">Competition</th>
-                        <th scope="col">Round</th>
-                        <th scope="col">Day</th>
-                        <th scope="col">Venue</th>
-                        <th scope="col">Result</th>
-                        <th scope="col">Season</th>
-                 
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for match in matches %}
-                    <tr>
-                    
-                        <td class="fw-bold">{{ match.date }}</td>
-                        <td class="fw-bold">{{ match.time }}</td>
-                        <td class="fw-bold {%if match.result == 'L' %}bg-danger{% elif match.result == 'D' %}bg-warning{% else %}bg-success{% endif %}">{{ match.team }}</td>
-                
-                        <td class="fw-bold {%if match.result == 'L' %}bg-success{% elif match.result == 'D' %}bg-warning{% else %}bg-danger{% endif %}">{{ match.opponent}}</td>
-                        <td>{{ match.comp }}</td>
-                        <td>{{ match.round }}</td>
-                        <td>{{ match.day }}</td>
-                        <td class="{% if match.venue == 'Away' %}text-danger{% elif match.venue == 'Home' %}text-success {%endif %} fw-bold">{{ match.venue }}</td>
-                        <td class="{%if match.result == 'L' %}text-danger{% elif match.result == 'D' %}text-warning{% else %}text-success{% endif %} fw-bold">{{ match.result }}</td>
-                        <td>{{ match.season }}</td>
-                      
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <a href="/matches/" class="text-decoration-none">View all -></a>
-        </div>
-        <h3 class="mt-2">Predictions</h3>
-        <div class="col-md-6 mt-3" style="height: 100vh;">
+    <div class="row justify-content-center">
+
+
+        <div class="col-md-6 mt-3" >
             <table class="table table-dark">
                 <thead>
                     <tr>
@@ -80,7 +39,7 @@
             </table>
         </div>
 
-        <div class="col-md-6 mt-3" style="height: 100vh;">
+        <div class="col-md-6 mt-3">
             <table class="table table-dark">
                 <thead>
                     <tr>
@@ -91,7 +50,7 @@
                         <th scope="col">Actual</th>
                         <th scope="col">Result</th>
                         <th scope="col">Newteam</th>
-          
+                 
                     </tr>
                 </thead>
                 <tbody>
@@ -105,15 +64,32 @@
                         <td class="{% if prediction.actual_y == 0 and prediction.result_y == 'L' %}text-danger{% elif prediction.actual_y == 0 and prediction.result_y == 'D' %}text-warning{% else %}text-success{% endif %} fw-bold">{{ prediction.actual_y }}</td>
                         <td class="{% if prediction.result_y == 'L' %}text-danger{% elif prediction.result_y == 'D' %}text-warning{% else %}text-success{% endif %} fw-bold">{{ prediction.result_y }}</td>
                         <td class="fw-bold">{{ prediction.new_team_y }}</td>
-            
+                  
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <a href="/predictions/" class="text-decoration-none">View all -></a>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                {% if predictions.has_previous %}
+                    <li class="page-item"><a class="page-link" href="/predictions/?page=1">First</a></li>
+                    <li class="page-item"><a class="page-link" href="/predictions/?page={{predictions.previous_page_number}}">Previous</a></li>
+                {% endif %}
         
-
-    </div>
+                {% for n in totalPage %}
+                    <li class="page-item {% if n == predictions.number %}active{% endif %}">
+                        <a class="page-link" href="/predictions/?page={{n}}">{{n}}</a>
+                    </li>
+                {% endfor %}
+        
+                {% if predictions.has_next %}
+                    <li class="page-item"><a class="page-link" href="/predictions/?page={{predictions.next_page_number}}">Next</a></li>
+                {% endif %}
+                <li class="page-item"><a class="page-link" href="/predictions/?page={{lastpage}}">Last</a></li>
+            </ul>
+        </nav>
+        
+    </div>  
 </div>
 {% endblock section %}
